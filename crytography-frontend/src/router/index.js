@@ -3,13 +3,18 @@ import VueRouter from 'vue-router'
 
 const login = () => import('@/views/login/main.vue')
 const content = () => import('@/views/content/main.vue')
+const user = () => import('@/views/user/main')
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect: content
+    redirect: '/content'
+  },
+  {
+    path: '/user',
+    component: user
   },
   {
     path: '/content',

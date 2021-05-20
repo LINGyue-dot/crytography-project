@@ -5,12 +5,18 @@
  */
 import request from '@/utils/request.js'
 
-export function login(obj) {
+export function login (obj) {
   return request({
-    url: '/register',
+    url: '/login',
     method: 'post',
     data: {
       ...obj
     }
+  })
+}
+export function testHello () {
+  return request({
+    url: '/hello',
+    method: 'get'
   })
 }
