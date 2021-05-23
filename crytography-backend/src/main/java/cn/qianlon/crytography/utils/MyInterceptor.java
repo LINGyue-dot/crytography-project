@@ -6,11 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.PrintWriter;
 
+
+@Component
 public class MyInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(MyInterceptor.class);
@@ -18,9 +21,11 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        System.out.println(request.getParameter("token") != null && Token.validToken(request.getParameter("token")));
         if (request.getRequestURI().equals("/login")) // 登入就直接放行
             return true;
-        if (request.getHeader("X-Token") != null && Token.validToken(request.getHeader("X-Token"))) {
+        if (request.getParameter("token") != null && Token.validToken(request.getParameter("token"))) {
+            System.out.println("28-----------------------------------------");
             return true;
         } else {
             RestApi restApi = new RestApi(403, "token is not valided", null, false);

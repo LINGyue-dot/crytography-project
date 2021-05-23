@@ -1,6 +1,5 @@
 package cn.qianlon.crytography.utils.RSA;
 
-import javax.swing.*;
 import java.math.BigInteger;
 
 /**
@@ -19,7 +18,7 @@ public class Rsa {
         // generate d
         BigInteger a = e;
         BigInteger b = fy;
-        BigInteger[] rxy = new cn.qianlon.crytography.utils.Rsa.GCD().extGcd(a, b);
+        BigInteger[] rxy = new GCD().extGcd(a, b);
         BigInteger r = rxy[0];
         BigInteger x = rxy[1];
         BigInteger y = rxy[2];
@@ -66,8 +65,11 @@ public class Rsa {
      * @return
      */
     public String decryptToString(BigInteger num) {
+//        BigInteger d = new Rsa().decrypt(num, RSAConfig.selfKey);
         BigInteger d = new Rsa().decrypt(num, RSAConfig.selfKey);
+
         byte[] tempByteArr = d.toByteArray();
+
         String tempStr = new String(tempByteArr);
         System.out.println(tempStr);
         return tempStr;

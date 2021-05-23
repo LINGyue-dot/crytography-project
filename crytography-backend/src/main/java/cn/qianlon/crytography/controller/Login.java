@@ -6,12 +6,9 @@ import cn.qianlon.crytography.domain.User;
 import cn.qianlon.crytography.service.LoginService;
 import cn.qianlon.crytography.utils.RestApi;
 import cn.qianlon.crytography.utils.Token;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.HttpServletBean;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,13 +40,11 @@ public class Login implements HandlerInterceptor {
 
     @CrossOrigin
     @GetMapping("/hello")
-    public ResponseEntity<RestApi> hello(){
+    public RestApi hello() {
         User tempUser = new User("1", "qianlong");
-        HttpHeaders headers = new HttpHeaders();
         //根据自己的需要动态添加你想要的content type
         RestApi restApi = new RestApi(200, "token success", tempUser, false);
-
-        return new ResponseEntity<RestApi>(restApi,headers, HttpStatus.OK);
+        return restApi;
     }
 }
 

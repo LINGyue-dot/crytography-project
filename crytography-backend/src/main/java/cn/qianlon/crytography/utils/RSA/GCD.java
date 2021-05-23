@@ -1,10 +1,9 @@
-package cn.qianlon.crytography.utils.Rsa;
+package cn.qianlon.crytography.utils.RSA;
 
 import java.math.BigInteger;
 
 /**
  * 求最大公约数
- * @author 北门大官人
  *
  */
 public class GCD {
