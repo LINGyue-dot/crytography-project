@@ -6,8 +6,14 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+axios.defaults.withCredentials = true
+axios.defaults.crossDomain = true
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
+// "Content-Type": "application/x-www-form-urlencoded"
 const service = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'http://120.27.242.14:5000',
   timeout: 100000
 })
 
@@ -15,8 +21,9 @@ const service = axios.create({
  * 请求拦截
  */
 service.interceptors.request.use(config => {
-  console.log('---------------------------------')
-  console.log(sessionStorage.getItem('X-Token'))
+  // console.log('---------------------------------')
+  // console.log(sessionStorage.getItem('X-Token'))
+  // config.headers['Access-Control-Allow-Origin'] = '*'
   if (sessionStorage.getItem('X-Token')) {
     config.headers['X-Token'] = sessionStorage.getItem('X-Token')
   }
@@ -30,7 +37,7 @@ service.interceptors.request.use(config => {
  * 响应拦截
  */
 service.interceptors.response.use(response => {
-  console.log('30--------', response)
+  // console.log('30--------', response)
   const res = response.data
 
   if (parseInt(res.code) !== 200) {

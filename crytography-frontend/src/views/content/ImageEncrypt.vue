@@ -25,16 +25,20 @@
       <el-col :span="7">
         <el-input v-model="key" style="width: 200px"></el-input>
       </el-col>
-      <el-col :span="10" v-if="encryptShow">
+    </el-row>
+
+    <el-row :gutter="10" style="margin-bottom: 25px">
+      <el-col :span="5">
         <el-button @click="encrypt">加密</el-button>
       </el-col>
-      <el-col :span="10" v-else>
+      <el-col :span="10">
         <el-input v-model="fileType" style="width: 100px;margin-right: 30px;"></el-input>
         <el-button @click="decrypte">解密</el-button>
       </el-col>
     </el-row>
-    <a v-if="!encryptShow" download="加密后文件.dat" :href="imageCode">加密后文件下载 </a>
-    <a v-else :download="'加密后文件.'+fileType" :href="imageCode">源文件下载</a>
+
+    <a v-if="!encryptShow" :download="'加密后文件.'+fileType" :href="imageCode">加密后文件下载 </a>
+    <a v-else :download="'源文件.'+fileType" :href="imageCode">源文件下载</a>
   </div>
 </template>
 
@@ -50,10 +54,10 @@ export default {
       imageCode: tempStr.base64Str,
       afterImageCode: '',
       key: '',
-      afterKey: '',
+      tempPre: 'data:image/png;base64',
+      // data:application/octet-stream;base64,
       fileType: 'dat',
       encryptShow: true
-
     }
   },
   methods: {
@@ -61,7 +65,9 @@ export default {
       return new Promise((resolve, reject) => {
         const reader = new FileReader()
         reader.readAsDataURL(file)
-        reader.onload = () => resolve(reader.result)
+        reader.onload = () => {
+          resolve(reader.result)
+        }
         reader.onerror = error => reject(error)
       })
     },
@@ -69,18 +75,23 @@ export default {
       const file = this.$refs.file.files[0]
       this.toBase64(file).then(res => {
         this.imageCode = res
+        console.log(this.imageCode)
       }).catch(err => {
-        console.log(err)
+        console.log('78', err)
       })
     },
     encrypt () {
-      this.imageCode = encryptCaesarEx(this.key, this.imageCode)
-      console.log(this.imageCode)
+      // 前缀保留 后缀加密
+      this.tempPre = this.imageCode.split(',')[0]
+      this.imageCode = encryptCaesarEx(this.key, this.imageCode.split(',')[1])
+      this.imageCode = this.tempPre + ',' + this.imageCode
       this.key = ''
       this.encryptShow = false
     },
     decrypte () {
-      this.imageCode = decryptCaesarEx(this.key, this.imageCode)
+      this.tempPre = this.imageCode.split(',')[0]
+      this.imageCode = decryptCaesarEx(this.key, this.imageCode.split(',')[1])
+      this.imageCode = this.tempPre + ',' + this.imageCode
       console.log(this.imageCode)
       this.encryptShow = true
     }

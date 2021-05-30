@@ -7,7 +7,7 @@ const { login } = require('@/api/login')
 
 export default new Vuex.Store({
   state: {
-    loginState: !!sessionStorage.getItem('X-Token')
+    loginState: !!sessionStorage.getItem('token')
   },
   mutations: {
     CHANGE_LOGIN_STATE: state => {
@@ -18,7 +18,7 @@ export default new Vuex.Store({
     userLogin ({ state, commit }, obj) {
       login(obj).then(res => {
         console.log(res)
-        sessionStorage.setItem('X-Token', res.data.data.token)
+        sessionStorage.setItem('token', res.data.data.token)
         commit('CHANGE_LOGIN_STATE')
         router.push('/content')
       })

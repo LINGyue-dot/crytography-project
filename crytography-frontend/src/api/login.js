@@ -14,9 +14,13 @@ export function login (obj) {
     }
   })
 }
-export function testHello () {
+
+export function testHello (token) {
   return request({
     url: '/hello',
-    method: 'get'
+    method: 'get',
+    params: {
+      token: token
+    }
   })
 }
