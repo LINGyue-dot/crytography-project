@@ -44,7 +44,7 @@ baseUrl : 120.27.242.14:1234/api/cryptography
 
 ### base api struct
 
-```json
+```
 {
     header:{
         X-Token:''// every http request  except register
@@ -82,7 +82,7 @@ baseUrl : 120.27.242.14:1234/api/cryptography
 
 后向前
 
-```json
+```
 {
     header:{
         X-Token:'' // token
