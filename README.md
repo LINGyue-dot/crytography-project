@@ -26,25 +26,11 @@
 
 * 将文件转 base64 ，对其进行加密
 
-
-
-
-
-
-
-
-
 ## api
-
-
-
-baseUrl : 120.27.242.14:1234/api/cryptography
-
-
 
 ### base api struct
 
-```
+```js
 {
     header:{
         X-Token:''// every http request  except register
@@ -82,7 +68,7 @@ baseUrl : 120.27.242.14:1234/api/cryptography
 
 后向前
 
-```
+```js
 {
     header:{
         X-Token:'' // token
@@ -97,13 +83,11 @@ baseUrl : 120.27.242.14:1234/api/cryptography
 
 
 
-
-
 ### 图片加密(`/content/image`)
 
 前向后(`post`)
 
-```json
+```js
 {
     
 }
