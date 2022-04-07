@@ -65,13 +65,13 @@ public class Rsa {
      * @return
      */
     public String decryptToString(BigInteger num) {
+        // 解密前端 rsa 加密的 password 解密为明文
 //        BigInteger d = new Rsa().decrypt(num, RSAConfig.selfKey);
         BigInteger d = new Rsa().decrypt(num, RSAConfig.selfKey);
 
         byte[] tempByteArr = d.toByteArray();
 
         String tempStr = new String(tempByteArr);
-        System.out.println(tempStr);
         return tempStr;
     }
 

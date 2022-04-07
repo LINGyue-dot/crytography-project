@@ -7,12 +7,13 @@ import java.math.BigInteger;
 public class LoginService {
     private static Rsa rsa = new Rsa();
 
-    public static boolean  isValidPassword(String str) {
+    public static boolean isValidPassword(String str) {
         BigInteger temp = new BigInteger(str);
         // 获取到明文
         String password = rsa.decryptToString(temp);
 
-        // 明文与数据库中数据对照
+        // 输出密码明文
+        System.out.println("below is  password from frontend : ");
         System.out.println(password);
         return true;
 
